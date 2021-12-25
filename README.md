@@ -57,12 +57,6 @@ The results show below（C1 network discussed in the paper).
 
 As for my reproduction using the code provided by the author.
 
-20 epochs
-
-![image-20211225125033984](./pic/image-20211225125033984.png)
-
-
-
 40epochs
 
 ![image-20211225125124002](./pic/image-20211225125124002.png)
@@ -76,11 +70,11 @@ As for my reproduction using the code provided by the author.
 For C2(discussed in the paper)
 Results in the paper show below.
 
-![image-20211225130113166](/Users/catbeta/Documents/ml/large_batch_training/pic/image-20211225130113166.png)
+![image-20211225130113166](./pic/image-20211225130113166.png)
 
 My reproduction is（ I trained relatively smaller epochs(about 20))
 
-![image-20211225131258731](/Users/catbeta/Documents/ml/large_batch_training/pic/image-20211225131258731.png)
+![image-20211225131258731](./pic/image-20211225131258731.png)
 
 ### 1.3 vgg11_bn
 
