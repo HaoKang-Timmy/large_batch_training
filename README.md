@@ -4,23 +4,22 @@
 
 ### 1.1 Settings and Commands
 
-| setting            | value                                 |
-| ------------------ | ------------------------------------- |
-| Pretrained dataset | Imagenet                              |
-| Dataset            | CIFAR10                               |
-| Imagesize          | 32                                    |
-| Epochs             | 200                                   |
-| Optimizer          | SGD                                   |
-| Momentum           | 0.9                                   |
-| Lr(initial)        | Scaling learning rate with batch size |
-| Scheduler          | CosineAnnealingLR                     |
-| Batch size         | 32,64,128,256,512,1024                |
-| Weight decay       | 1e-4                                  |
-| Distributed        | Yes                                   |
-| Backbone           | MobileNetV2                           |
-| Finetune strategy  | finetune full network                 |
+| setting           | value                                 |
+| ----------------- | ------------------------------------- |
+| Dataset           | CIFAR10                               |
+| Imagesize         | 32                                    |
+| Epochs            | 200                                   |
+| Optimizer         | SGD                                   |
+| Momentum          | 0.9                                   |
+| Lr(initial)       | Scaling learning rate with batch size |
+| Scheduler         | CosineAnnealingLR                     |
+| Batch size        | 32,64,128,256,512,1024                |
+| Weight decay      | 1e-4                                  |
+| Distributed       | Yes                                   |
+| Backbone          | MobileNetV2                           |
+| Finetune strategy | finetune full network                 |
 
-Refer commands to https://github.com/timmywanttolearn/finetune
+Refer  to https://github.com/timmywanttolearn/finetune
 
  ### 1.2.2 Results
 
@@ -39,7 +38,7 @@ Refer commands to https://github.com/timmywanttolearn/finetune
 
 I use two architecture to reproduce this paper[1]. One is based on the TensorFlow code that the author provided https://github.com/keskarnitish/large-batch-training. The other is the PyTorch code I wrote. Settings(including backbone, epochs, batch size, learning rate).
 
-For C1, C2 reproduction, I choose tf code provided by author
+For C1, C2 reproduction, I choose to code provided by the author.
 
 For vgg11_bn, I use my code.
 
@@ -68,7 +67,7 @@ As for my reproduction using the code provided by the author.
 ### 1.2 C2 network
 
 For C2(discussed in the paper)
-Results in the paper show below.
+Results in the paper are show below.
 
 ![image-20211225130113166](./pic/image-20211225130113166.png)
 
@@ -92,7 +91,7 @@ So I can not draw cross-entropy when alpha > 1.
 
 ## 2 Conclusion
 
-It is easily seen that for accuracy curve, sharp minima occur at large batch training, smaller batches have flat minima. However for cross-entropy, due to losses got too huge at alpha > 1, we can not easily see that gap.
+It is easily seen that for accuracy curve, sharp minima occur at large batch training, smaller batches have flat minima. However for cross-entropy, due to losses getting too huge at alpha > 1, we can not easily see that gap.
 
 # Reference
 
