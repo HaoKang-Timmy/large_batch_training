@@ -49,7 +49,7 @@ code Refer  to https://github.com/timmywanttolearn/finetune
 | Optimizer    | SGD                                                          |
 | Momentum     | 0.9                                                          |
 | Lr(initial)  | Scaling learning rate with batch size(0.1 for batch size 256) |
-| Scheduler    | CosineAnnealingLR(with constant warm up)                     |
+| Scheduler    | CosineAnnealingLR(with gradual warm up)                      |
 | Batch size   | 256,1024,2048(checkpoint)                                    |
 | Weight decay | 1e-4                                                         |
 | Distributed  | Yes                                                          |
@@ -59,7 +59,7 @@ code Refer  to https://github.com/timmywanttolearn/finetune
 
 code Refer  to https://github.com/kuangliu/pytorch-cifar
 
-# 2 Training error vs mini batch size
+# 2 Training error vs mini-batch size
 
 I must confess that due to huge memory costs, I change the dataset to CIFAR10 instead of Imagenet. Also, Resnet is impossible to train batch size 2046(I insert checkpoint at each bottleneck). I change the backbone to MobileNetV2.
 
@@ -73,7 +73,7 @@ My result is here.
 
 ![image-20211227170317430](./pic/image-20211227170317430.png)
 
-You could see that larger batch get a better result at training sets. Why? The reason is that I use 32*32 pages here, which cost a great overfit on training sets. So I plotted the validation loss% below.
+You could see that a larger batch get a better result at training sets. Why? The reason is that I use 32*32 pages here, which cost a great overfit on training sets. So I plotted the validation loss% below.
 
 ![image-20211227170731428](./pic/image-20211227170731428.png)
 
@@ -107,7 +107,7 @@ Similar to the former one.
 | Optimizer    | SGD                                                          |
 | Momentum     | 0.9                                                          |
 | Lr(initial)  | Scaling learning rate with batch size(0.1 for batch size 256) |
-| Scheduler    | CosineAnnealingLR(with constant warm up)                     |
+| Scheduler    | CosineAnnealingLR(with gradual warm up)                      |
 | Batch size   | 32,64,128,256,512(checkpoint)                                |
 | Weight decay | 1e-4                                                         |
 | Distributed  | Yes                                                          |
