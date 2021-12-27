@@ -77,7 +77,7 @@ presented in paper
 
 My result is here.
 
-![image-20211227212745699](./pic/image-20211227212745699.png)
+![image-20211227213111846](./pic/image-20211227213111846.png)
 
 You could see that a larger batch get a better result at training sets. Why? The reason is that I use 32*32 pages here, which cost a great overfit on training sets. So I plotted the validation loss% below.
 
