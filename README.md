@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: ./pic
+---
+
 
 
 # large_batch_training
@@ -73,7 +77,7 @@ presented in paper
 
 My result is here.
 
-![image-20211227170317430](./pic/image-20211227170317430.png)
+![image-20211227212745699](./pic/image-20211227212745699.png)
 
 You could see that a larger batch get a better result at training sets. Why? The reason is that I use 32*32 pages here, which cost a great overfit on training sets. So I plotted the validation loss% below.
 
@@ -89,7 +93,7 @@ presented in paper
 
 My result is
 
-![image-20211227205918870](./pic/image-20211227205918870.png)
+![image-20211227212902726](./pic/image-20211227212902726.png)
 
 
 
