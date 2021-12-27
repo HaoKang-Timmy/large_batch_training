@@ -23,7 +23,7 @@
 
 code Refer  to https://github.com/timmywanttolearn/finetune
 
- ### 1.2.2 Results
+ ### 1.2 Results
 
 | Batchsize(on 4 GPUs) | Initial learning rate(scaled) | val_acc(top1) |
 | -------------------- | ----------------------------- | ------------- |
@@ -59,7 +59,9 @@ code Refer  to https://github.com/timmywanttolearn/finetune
 
 code Refer  to https://github.com/kuangliu/pytorch-cifar
 
-# 2 Training error vs mini-batch size
+same settings to paper
+
+## 2 Training error vs mini-batch size
 
 I must confess that due to huge memory costs, I change the dataset to CIFAR10 instead of Imagenet. Also, Resnet is impossible to train batch size 2046(I insert checkpoint at each bottleneck). I change the backbone to MobileNetV2.
 
@@ -115,7 +117,7 @@ Similar to the former one.
 | Backbone     | MobileNetV2                                                  |
 | strategy     | Finetune full network                                        |
 
-# 2 results
+## 2 results
 
 
 
@@ -128,3 +130,4 @@ Similar to the former one.
 | 512                  | 0.2                           | 84.16%        |
 
 ![image-20211227205641684](./pic/image-20211227205641684.png)
+
