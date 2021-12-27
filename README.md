@@ -39,7 +39,7 @@ code Refer  to https://github.com/timmywanttolearn/finetune
 
 # Reproduce of Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour
 
-## 1 Settings
+## 1 Setting
 
 | setting      | value                                                        |
 | ------------ | ------------------------------------------------------------ |
@@ -57,11 +57,11 @@ code Refer  to https://github.com/timmywanttolearn/finetune
 | Backbone     | MobileNetV2                                                  |
 | strategy     | train full network                                           |
 
-code Refer  tohttps://github.com/kuangliu/pytorch-cifar
+code Refer  to https://github.com/kuangliu/pytorch-cifar
 
-# 2 Training error vs mini batchsize
+# 2 Training error vs mini batch size
 
-I must confess that due to huge memory costs, I change dataset to CIFAR10 instead of Imagenet. Also, Resnet is impossible to train batch size 2046(I insert checkpoint at each bottleneck). I change backbone to MobileNetV2.
+I must confess that due to huge memory costs, I change the dataset to CIFAR10 instead of Imagenet. Also, Resnet is impossible to train batch size 2046(I insert checkpoint at each bottleneck). I change the backbone to MobileNetV2.
 
 presented in paper
 
@@ -73,11 +73,11 @@ My result is here.
 
 ![image-20211227170317430](./pic/image-20211227170317430.png)
 
-You could see that larger batch get better result at training sets. Why? The reason is that I use 32*32 pages here, which cost great overfit on training sets. So I ploted the validation loss% below.
+You could see that larger batch get a better result at training sets. Why? The reason is that I use 32*32 pages here, which cost a great overfit on training sets. So I plotted the validation loss% below.
 
 ![image-20211227170731428](./pic/image-20211227170731428.png)
 
-It comes out that smaller batch get better results.
+It comes out that smaller batches get better results.
 
 The other picture is about 256 and 2048.
 
@@ -93,11 +93,11 @@ My result is
 
 ![image-20211227203500691](./pic/image-20211227203500691.png)
 
-Similar to  the former one.
+Similar to the former one.
 
-# finetune acc vs batchsize
+# finetune acc vs batch size
 
-## 1 Settings
+## 1 Setting
 
 | setting      | value                                                        |
 | ------------ | ------------------------------------------------------------ |
@@ -121,10 +121,10 @@ Similar to  the former one.
 
 | Batchsize(on 4 GPUs) | Initial learning rate(scaled) | val_acc(top1) |
 | -------------------- | ----------------------------- | ------------- |
-| 32                   | 0.0125                        | 94.32%        |
-| 64                   | 0.025                         | 94.32%        |
-| 128                  | 0.05                          | 94.27%        |
-| 256                  | 0.1                           | 94.28%        |
+| 32                   | 0.0125                        | 96.30%        |
+| 64                   | 0.025                         | 96.37%        |
+| 128                  | 0.05                          | 96.11%        |
+| 256                  | 0.1                           | 96.01%        |
 | 512                  | 0.2                           | 84.16%        |
 
 ![image-20211227205641684](./pic/image-20211227205641684.png)
