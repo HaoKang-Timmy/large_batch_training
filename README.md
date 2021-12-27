@@ -1,98 +1,130 @@
+
+
 # large_batch_training
 
-## 1 Main Results
+## 1 Main Results of training from scratch
 
 ### 1.1 Settings and Commands
 
-| setting           | value                                 |
-| ----------------- | ------------------------------------- |
-| Dataset           | CIFAR10                               |
-| Imagesize         | 32                                    |
-| Epochs            | 200                                   |
-| Optimizer         | SGD                                   |
-| Momentum          | 0.9                                   |
-| Lr(initial)       | Scaling learning rate with batch size |
-| Scheduler         | CosineAnnealingLR                     |
-| Batch size        | 32,64,128,256,512,1024                |
-| Weight decay      | 1e-4                                  |
-| Distributed       | Yes                                   |
-| Backbone          | MobileNetV2                           |
-| Finetune strategy | finetune full network                 |
+| setting      | value                                    |
+| ------------ | ---------------------------------------- |
+| Dataset      | CIFAR10                                  |
+| Imagesize    | 32                                       |
+| Epochs       | 200                                      |
+| Optimizer    | SGD                                      |
+| Momentum     | 0.9                                      |
+| Lr(initial)  | Scaling learning rate with batch size    |
+| Scheduler    | CosineAnnealingLR(with constant warm up) |
+| Batch size   | 32,64,128,256,512,1024(checkpoint)       |
+| Weight decay | 1e-4                                     |
+| Distributed  | Yes                                      |
+| Backbone     | MobileNetV2                              |
+| strategy     | train full network                       |
 
-Refer  to https://github.com/timmywanttolearn/finetune
+code Refer  to https://github.com/timmywanttolearn/finetune
 
  ### 1.2.2 Results
 
 | Batchsize(on 4 GPUs) | Initial learning rate(scaled) | val_acc(top1) |
 | -------------------- | ----------------------------- | ------------- |
-| 32                   | 3e-4                          | 94.32%        |
-| 64                   | 6e-4                          | 94.32%        |
-| 128                  | 1.2e-3                        | 94.27%        |
-| 256                  | 2.4e-3                        | 94.28%        |
-| 512                  | 4.8e-3                        | 94.16%        |
-| 1024                 | 9.6e-3                        | 93.76%        |
+| 32                   | 0.0125                        | 94.32%        |
+| 64                   | 0.025                         | 94.32%        |
+| 128                  | 0.05                          | 94.27%        |
+| 256                  | 0.1                           | 94.28%        |
+| 512                  | 0.2                           | 94.16%        |
+| 1024(checkpoint)     | 0.4                           | 93.76%        |
+| 2048（checkpoint)    | 3.2                           | 92.13%        |
 
 ![image-20211225121130057](./pic/image-20211225121130057.png)
 
-# Large batch training
+# Reproduce of Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour
 
-I use two architecture to reproduce this paper[1]. One is based on the TensorFlow code that the author provided https://github.com/keskarnitish/large-batch-training. The other is the PyTorch code I wrote. Settings(including backbone, epochs, batch size, learning rate).
+## 1 Settings
 
-For C1, C2 reproduction, I choose to code provided by the author.
+| setting      | value                                                        |
+| ------------ | ------------------------------------------------------------ |
+| Dataset      | CIFAR10                                                      |
+| Imagesize    | 32                                                           |
+| Epochs       | 100                                                          |
+| Optimizer    | SGD                                                          |
+| Momentum     | 0.9                                                          |
+| Lr(initial)  | Scaling learning rate with batch size(0.1 for batch size 256) |
+| Scheduler    | CosineAnnealingLR(with constant warm up)                     |
+| Batch size   | 256,1024,2048(checkpoint)                                    |
+| Weight decay | 1e-4                                                         |
+| Distributed  | Yes                                                          |
+| warm up      | gradual warm up                                              |
+| Backbone     | MobileNetV2                                                  |
+| strategy     | train full network                                           |
 
-For vgg11_bn, I use my code.
+code Refer  tohttps://github.com/kuangliu/pytorch-cifar
 
-## 1 Reproduction
+# 2 Training error vs mini batchsize
 
-In this paper, the author train two sets of parameters. One is using small batches(256), the other uses large batches(5000). And he combines linearly two sets and tests their accuracy and losses on the CIFAR10 dataset.
+I must confess that due to huge memory costs, I change dataset to CIFAR10 instead of Imagenet. Also, Resnet is impossible to train batch size 2046(I insert checkpoint at each bottleneck). I change backbone to MobileNetV2.
 
-### 1.1 C1 network
+presented in paper
 
-The results show below（C1 network discussed in the paper).
+![image-20211227165942609](./pic/image-20211227165942609.png)
 
-### 
 
-![image-20211225124405124](./pic/image-20211225124405124.png)
 
-As for my reproduction using the code provided by the author.
+My result is here.
 
-40epochs
+![image-20211227170317430](./pic/image-20211227170317430.png)
 
-![image-20211225125124002](./pic/image-20211225125124002.png)
+You could see that larger batch get better result at training sets. Why? The reason is that I use 32*32 pages here, which cost great overfit on training sets. So I ploted the validation loss% below.
 
-100 epochs(same in paper)
+![image-20211227170731428](./pic/image-20211227170731428.png)
 
-![image-20211225125621052](./pic/image-20211225125621052.png)
+It comes out that smaller batch get better results.
 
-### 1.2 C2 network
+The other picture is about 256 and 2048.
 
-For C2(discussed in the paper)
-Results in the paper are show below.
+presented in paper
 
-![image-20211225130113166](./pic/image-20211225130113166.png)
+![image-20211227170948376](./pic/image-20211227170948376.png)
 
-My reproduction is（ I trained relatively smaller epochs(about 20))
+My result is
 
-![image-20211225131258731](./pic/image-20211225131258731.png)
+![image-20211227205918870](./pic/image-20211227205918870.png)
 
-### 1.3 vgg11_bn
 
-In the Github repo provided PyTorch code training vgg11_bn and get this picture
 
-![image-20211225132131449](./pic/image-20211225132131449.png)
+![image-20211227203500691](./pic/image-20211227203500691.png)
 
-My result is 
+Similar to  the former one.
 
-![image-20211225132154159](./pic/image-20211225132154159.png)
+# finetune acc vs batchsize
 
-it is wired that if alpha > 1, my model will get negative outputs that are not acceptable......
+## 1 Settings
 
-So I can not draw cross-entropy when alpha > 1.
+| setting      | value                                                        |
+| ------------ | ------------------------------------------------------------ |
+| Dataset      | CIFAR10                                                      |
+| Imagesize    | 224                                                          |
+| Epochs       | 100                                                          |
+| Optimizer    | SGD                                                          |
+| Momentum     | 0.9                                                          |
+| Lr(initial)  | Scaling learning rate with batch size(0.1 for batch size 256) |
+| Scheduler    | CosineAnnealingLR(with constant warm up)                     |
+| Batch size   | 32,64,128,256,512(checkpoint)                                |
+| Weight decay | 1e-4                                                         |
+| Distributed  | Yes                                                          |
+| warm up      | gradual warm up                                              |
+| Backbone     | MobileNetV2                                                  |
+| strategy     | Finetune full network                                        |
 
-## 2 Conclusion
+# 2 results
 
-It is easily seen that for accuracy curve, sharp minima occur at large batch training, smaller batches have flat minima. However for cross-entropy, due to losses getting too huge at alpha > 1, we can not easily see that gap.
 
-# Reference
 
-[1] Keskar N S, Mudigere D, Nocedal J, et al. On large-batch training for deep learning: Generalization gap and sharp minima[J]. arXiv preprint arXiv:1609.04836, 2016.
+| Batchsize(on 4 GPUs) | Initial learning rate(scaled) | val_acc(top1) |
+| -------------------- | ----------------------------- | ------------- |
+| 32                   | 0.0125                        | 94.32%        |
+| 64                   | 0.025                         | 94.32%        |
+| 128                  | 0.05                          | 94.27%        |
+| 256                  | 0.1                           | 94.28%        |
+| 512                  | 0.2                           | 84.16%        |
+
+![image-20211227205641684](./pic/image-20211227205641684.png)
