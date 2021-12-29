@@ -54,7 +54,7 @@ code Refer  to https://github.com/timmywanttolearn/finetune
 | Momentum     | 0.9                                                          |
 | Lr(initial)  | Scaling learning rate with batch size(0.1 for batch size 256) |
 | Scheduler    | CosineAnnealingLR(with gradual warm up and linear scaling rule) |
-| Batch size   | 256,1024,2048(checkpoint)                                    |
+| Batch size   | 256,1024(checkpoint) ,2048(checkpoint)                                    |
 | Weight decay | 1e-4                                                         |
 | Distributed  | Yes                                                          |
 | warm up      | gradual warm up                                              |
