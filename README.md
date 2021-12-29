@@ -113,7 +113,7 @@ Similar to the former one.
 | Optimizer    | SGD                                                          |
 | Momentum     | 0.9                                                          |
 | Lr(initial)  | Scaling learning rate with batch size(0.1 for batch size 256) |
-| Scheduler    | CosineAnnealingLR(with gradual warm up and linear scaling rule) |
+| Scheduler    | linear scaling rule(with gradual warm up and linear scaling rule) |
 | Batch size   | 32,64,128,256,512(checkpoint)                                |
 | Weight decay | 1e-4                                                         |
 | Distributed  | Yes                                                          |
