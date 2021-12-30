@@ -35,7 +35,7 @@ code Refer  to https://github.com/timmywanttolearn/finetune
 | 256                  | 0.1                           | 94.28%        |
 | 512                  | 0.2                           | 94.16%        |
 | 1024(checkpoint)     | 0.4                           | 93.76%        |
-| 2048（checkpoint)    | 3.2                           | 92.13%        |
+| 2048（checkpoint)    | 0.8                           | 92.13%        |
 
 ![image-20211225121130057](./pic/image-20211225121130057.png)
 
